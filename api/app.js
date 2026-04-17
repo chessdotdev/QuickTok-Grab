@@ -1,10 +1,25 @@
 import express from 'express';
 import { ApifyClient } from 'apify-client';
+import cors from 'cors';
 import 'dotenv/config';
+import path from 'path';
+import { fileURLToPath } from "url";
 
 const app = express();
+app.use(cors()); //allow all origins
+// app.use(cors({
+//   origin: 'http://localhost:3000' 
+// }));
 const PORT = process.env.PORT || 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+app.use(express.static(path.join(__dirname, "../public")));
+
+//route
+app.get("/", (req, res) => {
+res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 // Initialize the ApifyClient with API token
 const client = new ApifyClient({
     token: process.env.API,
@@ -47,4 +62,4 @@ const input = {
     }
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

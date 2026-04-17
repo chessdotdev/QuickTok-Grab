@@ -1,17 +1,26 @@
 {
-  "name": "tiktokdl",
+  "name": "quicktok-grab",
   "version": "1.0.0",
   "description": "Web scraping API for TikTok",
   "keywords": [],
+  "homepage": "https://github.com/chessdotdev/QuickTok-Grab#readme",
+  "bugs": {
+    "url": "https://github.com/chessdotdev/QuickTok-Grab/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chessdotdev/QuickTok-Grab.git"
+  },
   "license": "ISC",
-  "author": "",
+  "author": "bert",
   "type": "module",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node api/app.js"
   },
   "dependencies": {
     "apify-client": "^2.22.3",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.1",
     "express": "^5.2.1"
   },
