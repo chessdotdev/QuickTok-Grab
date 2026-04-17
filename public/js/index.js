@@ -26,7 +26,7 @@
     currentVideoUrl = null;
 
     try {
-      const res = await fetch(`http://localhost:3000/tiktok/download?url=${encodeURIComponent(url)}`);
+      const res = await fetch(`https://quicktok-grab.onrender.com/tiktok/download?url=${encodeURIComponent(url)}`);
       const data = await res.json();
       
       if (data.success && data.data && data.data.length > 0) {
