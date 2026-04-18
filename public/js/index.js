@@ -28,15 +28,32 @@
     try {
       const res = await fetch(`https://quicktok-grab.onrender.com/tiktok/download?url=${encodeURIComponent(url)}`);
       const data = await res.json();
+      console.log(data);
       
-      if (data.success && data.data && data.data.length > 0) {
-        currentVideoUrl = data.data[0].url;
-        videoPlayer.src = currentVideoUrl;
-        videoCard.style.display = 'block';
-        setStatus('ok', 'Video loaded successfully');
+     // ✅ HANDLE HTTP ERRORS FIRST
+    if (!res.ok) {
+      if (data.data === "INVALID_URLS") {
+        setStatus('err', 'Invalid TikTok URL. Please check and try again.');
       } else {
-        setStatus('err', 'No video found for this URL');
+        setStatus('err', data.error || 'Request failed');
       }
+      return;
+    }
+
+    // ✅ SUCCESS CASE
+    const firstVideo = data.data?.[0];
+
+    if (!firstVideo?.url) {
+      setStatus('err', 'No video found for this URL');
+      return;
+    }
+
+    currentVideoUrl = firstVideo.url;
+    videoPlayer.src = currentVideoUrl;
+    videoCard.style.display = 'block';
+    setStatus('ok', 'Video loaded successfully');
+
+     
     } catch (err) {
       setStatus('err', 'Could not reach server');
     }

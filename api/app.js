@@ -47,16 +47,24 @@ const input = {
      items.forEach((item) => {
         console.dir(item);
     });
+    
 
+    // Check if API returned an error object
+    const firstItem = items[0];
+
+    if(firstItem.errorCode === 'INVALID_URLS'){
+       return res.status(400).json({ success: false, data: firstItem.errorCode });
+
+    }
+    
     const videos = items.map(item => ({
             id: item.id,
-            url: item.videoMeta?.downloadAddr,
+            url: item.videoMeta,
             text: item.text
     }));
     console.log(videos);
 
-    
-    res.json({ success: true, data: videos });
+    res.status(200).json({ success: true, data: videos });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
     }
