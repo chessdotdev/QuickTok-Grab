@@ -58,9 +58,9 @@ const input = {
     }
     
     const videos = items.map(item => ({
-            id: item.id,
-            url: item.videoMeta,
-            text: item.text
+           id: item?.id || null,
+           url: item?.videoMeta?.downloadAddr || null,
+           text: item?.text || null
     }));
     console.log(videos);
 
