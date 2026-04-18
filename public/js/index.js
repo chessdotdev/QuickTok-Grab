@@ -28,9 +28,7 @@
     try {
       const res = await fetch(`https://quicktok-grab.onrender.com/tiktok/download?url=${encodeURIComponent(url)}`);
       const data = await res.json();
-      console.log(data);
       
-     // ✅ HANDLE HTTP ERRORS FIRST
     if (!res.ok) {
       if (data.data === "INVALID_URLS") {
         setStatus('err', 'Invalid TikTok URL. Please check and try again.');
@@ -40,7 +38,6 @@
       return;
     }
 
-    // ✅ SUCCESS CASE
     const firstVideo = data.data?.[0];
 
     if (!firstVideo?.url) {
